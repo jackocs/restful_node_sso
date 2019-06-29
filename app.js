@@ -22,7 +22,6 @@ permission_load();
 var ac_options = {
     mode: 'allow',
     denys: [],
-    //allows: ['127.0.0.1','158.108.253.224'],
     allows: permit_list,
     forceConnectionAddress: false,
     log: function(clientIp, access) {
@@ -98,18 +97,7 @@ var	app = express();
 
 	//Add Router
 	app.use('/api/v1/permission',permission_router);
-	//app.use('/api/v1/top',require('./v1/api_top.js'));
 	app.use('/api/v1/node',require('./v1/api_node.js'));
-	//DIR
-	app.use('/api/v1/ckSlpad',require('./v1/api_ckSlpad.js'));
-	app.use('/api/v1/dir/install',require('./v1/api_dir_install.js'));
-	app.use('/api/v1/dir/del',require('./v1/api_dir_del.js'));
-	app.use('/api/v1/dir/restart',require('./v1/api_dir_restart.js'));
-	app.use('/api/v1/dir/stop',require('./v1/api_dir_stop.js'));
-        app.use('/api/v1/dir/start',require('./v1/api_dir_start.js'));
-        app.use('/api/v1/dir/resync',require('./v1/api_dir_resync.js'));
-	//Count User
-	app.use('/api/v1/users/count',require('./v1/api_users_count.js'));
 
 	app.get('/api/v1/query',function(req, res){
 		res.send(JSON.stringify(req.query));
