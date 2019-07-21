@@ -7,7 +7,7 @@ var child;
 
 router.get('/', function (req, res) {
 var id=req.query.id
-child = exec("/home/restful_node_slave/sh/ckNode.sh "+ id, function (error, stdout, stderr) {
+child = exec("/home/restful_node_sso/sh/ckNode.sh "+ id, function (error, stdout, stderr) {
 	let output = stdout.split(' ');
 	//let respond = {'status':output[0].trim()};
 	let respond = output[0].trim();

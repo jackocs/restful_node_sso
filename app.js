@@ -98,6 +98,13 @@ var	app = express();
 	//Add Router
 	app.use('/api/v1/permission',permission_router);
 	app.use('/api/v1/node',require('./v1/api_node.js'));
+	// Directory
+	app.use('/api/v1/dir/listAll',require('./v1/api_dir_listAll.js'));
+	app.use('/api/v1/dir/testAuth',require('./v1/api_dir_testAuth.js'));
+	app.use('/api/v1/dir/add',require('./v1/api_dir_add.js'));
+	app.use('/api/v1/dir/delete',require('./v1/api_dir_delete.js'));
+	app.use('/api/v1/dir/edit',require('./v1/api_dir_edit.js'));
+	
 
 	app.get('/api/v1/query',function(req, res){
 		res.send(JSON.stringify(req.query));
