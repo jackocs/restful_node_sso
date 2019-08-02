@@ -44,8 +44,7 @@ $sth->execute() or die $DBI::errstr;
 	printf "OK#". JSON::to_json( \@output, {utf8 => 1}); 
 
    }else{
-	my $aa = "null";
-	printf 'OK#'.$aa;
+	printf 'OK#[]';
    }
 $sth->finish();
 $dbh->disconnect();

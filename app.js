@@ -95,7 +95,7 @@ var	app = express();
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({ extended: true }));
 
-	//Add Router
+	// Add Router
 	app.use('/api/v1/permission',permission_router);
 	app.use('/api/v1/node',require('./v1/api_node.js'));
 	// Directory
@@ -104,7 +104,25 @@ var	app = express();
 	app.use('/api/v1/dir/add',require('./v1/api_dir_add.js'));
 	app.use('/api/v1/dir/delete',require('./v1/api_dir_delete.js'));
 	app.use('/api/v1/dir/edit',require('./v1/api_dir_edit.js'));
-	
+	// Scope
+	app.use('/api/v1/scope/listObject',require('./v1/api_scope_list_object.js'));
+	app.use('/api/v1/scope/listAttributes',require('./v1/api_scope_list_attributes.js'));
+	app.use('/api/v1/scope/listAll',require('./v1/api_scope_listAll.js'));
+	app.use('/api/v1/scope/list',require('./v1/api_scope_list.js'));
+	app.use('/api/v1/scope/add',require('./v1/api_scope_add.js'));
+	app.use('/api/v1/scope/delete',require('./v1/api_scope_delete.js'));
+	app.use('/api/v1/scope/edit',require('./v1/api_scope_edit.js'));
+	// Group Policy
+	app.use('/api/v1/groupPolicy/list',require('./v1/api_groupPolicy_list.js'));
+	app.use('/api/v1/groupPolicy/listAll',require('./v1/api_groupPolicy_listAll.js'));
+	app.use('/api/v1/groupPolicy/add',require('./v1/api_groupPolicy_add.js'));
+	app.use('/api/v1/groupPolicy/edit',require('./v1/api_groupPolicy_edit.js'));
+	app.use('/api/v1/groupPolicy/delete',require('./v1/api_groupPolicy_delete.js'));
+	// Clients
+	app.use('/api/v1/clients/listAll',require('./v1/api_clients_listAll.js'));
+	app.use('/api/v1/clients/add',require('./v1/api_clients_add.js'));
+	app.use('/api/v1/clients/edit',require('./v1/api_clients_edit.js'));
+	app.use('/api/v1/clients/delete',require('./v1/api_clients_delete.js'));
 
 	app.get('/api/v1/query',function(req, res){
 		res.send(JSON.stringify(req.query));
