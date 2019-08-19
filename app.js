@@ -123,6 +123,21 @@ var	app = express();
 	app.use('/api/v1/clients/add',require('./v1/api_clients_add.js'));
 	app.use('/api/v1/clients/edit',require('./v1/api_clients_edit.js'));
 	app.use('/api/v1/clients/delete',require('./v1/api_clients_delete.js'));
+	// Monitor
+	app.use('/api/v1/monitors/concurrent',require('./v1/api_monitors_concurrent.js'));
+	app.use('/api/v1/monitors/webResponse',require('./v1/api_monitors_webResponse.js'));
+	app.use('/api/v1/monitors/docker',require('./v1/api_monitors_docker.js'));
+	// Report
+	app.use('/api/v1/report/concurrent',require('./v1/api_report_concurrent.js'));
+	app.use('/api/v1/report/users',require('./v1/api_report_users.js'));
+	app.use('/api/v1/report/apps/top',require('./v1/api_report_appsTop.js'));
+	app.use('/api/v1/report/apps',require('./v1/api_report_apps.js'));
+	// Backup
+	app.use('/api/v1/backup/list',require('./v1/api_backup_list.js'));
+	app.use('/api/v1/backup/all',require('./v1/api_backup_all.js'));
+	app.use('/api/v1/backup/delete',require('./v1/api_backup_delete.js'));
+	app.use('/api/v1/backup/files',require('./v1/api_backup_files.js'));
+	//
 
 	app.get('/api/v1/query',function(req, res){
 		res.send(JSON.stringify(req.query));

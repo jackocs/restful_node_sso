@@ -31,17 +31,24 @@ router.get('/:client_id', function (req, res) {
 		}else if (!results.length) {
                     result = {'status':'fail','result': 'null value'};                                                                     
                     return res.json(result);
-//		}else if (!results[0].something) {
-//                    result = {'status':'fail','result': 'null'};                                                                     
-///                    return res.json(result);                                                                                                                    
                 }else {  
             			connection.query("DELETE FROM oauth_clients where client_id='"+ client_id +"'", function (error, results, fields) {
                 			if (error) {	
 						let result = {'status':'fail','result': error.message};
 						return res.json(result); 
 					}else{
-						let result = {'status':'ok','result':''};
-						res.json(result);
+
+						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_clients delete "+ client_id , function (error, stdout, stderr) {
+                                                        if (error !== null) {
+                                                                result = {'status':'fail','result': error};
+                                                                return res.json(result);
+                                                        }else{
+                                                                result = {'status':'ok','result':''};
+                                                                return res.json(result);
+                                                        }
+                                                });
+						//let result = {'status':'ok','result':''};
+						//res.json(result);
 					}                                                                                                                   
 
 	  			});

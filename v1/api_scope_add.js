@@ -54,8 +54,17 @@ router.post('', function(req, res) {
                     				result = {'status':'fail','result': error.message};
                     				return res.json(result);
 					}else{
-                    				result = {'status':'ok','result':''};
-                    				return res.json(result);
+						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_scopes add "+ scope, function (error, stdout, stderr) {
+                                                        if (error !== null) {
+                                                                result = {'status':'fail','result': error};
+                                                                return res.json(result);
+                                                        }else{
+                                                                result = {'status':'ok','result':''};
+                                                                return res.json(result);
+                                                        }
+                                                });
+                    				//result = {'status':'ok','result':''};
+                    				//return res.json(result);
 					}
 	    			});
 
