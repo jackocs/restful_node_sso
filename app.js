@@ -137,6 +137,8 @@ var	app = express();
 	app.use('/api/v1/backup/all',require('./v1/api_backup_all.js'));
 	app.use('/api/v1/backup/delete',require('./v1/api_backup_delete.js'));
 	app.use('/api/v1/backup/files',require('./v1/api_backup_files.js'));
+	app.use('/api/v1/restore/all',require('./v1/api_restore_all.js')); // on local
+	app.use('/api/v1/restore/files',require('./v1/api_restore_files.js')); // on upload
 	//
 
 	app.get('/api/v1/query',function(req, res){
