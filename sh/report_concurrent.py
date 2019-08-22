@@ -20,7 +20,7 @@ def showLogs(date_start,date_next):
 
 try:
 	if sys.argv[1]:
-		last_hour = int(sys.argv[1])
+		last_hour = int(sys.argv[1])+1
 		#last_hour = 48
 		n = datetime.datetime.now()
 		x = datetime.datetime.now() - datetime.timedelta(hours = last_hour)

@@ -100,6 +100,7 @@ var	app = express();
 	app.use('/api/v1/node',require('./v1/api_node.js'));
 	// Directory
 	app.use('/api/v1/dir/listAll',require('./v1/api_dir_listAll.js'));
+	app.use('/api/v1/dir',require('./v1/api_dir_list.js'));
 	app.use('/api/v1/dir/testAuth',require('./v1/api_dir_testAuth.js'));
 	app.use('/api/v1/dir/add',require('./v1/api_dir_add.js'));
 	app.use('/api/v1/dir/delete',require('./v1/api_dir_delete.js'));
@@ -121,6 +122,7 @@ var	app = express();
 	app.use('/api/v1/groupPolicy/delete',require('./v1/api_groupPolicy_delete.js'));
 	// Clients
 	app.use('/api/v1/clients/listAll',require('./v1/api_clients_listAll.js'));
+	app.use('/api/v1/clients',require('./v1/api_clients.js'));
 	app.use('/api/v1/clients/add',require('./v1/api_clients_add.js'));
 	app.use('/api/v1/clients/edit',require('./v1/api_clients_edit.js'));
 	app.use('/api/v1/clients/delete',require('./v1/api_clients_delete.js'));
@@ -156,6 +158,8 @@ var	app = express();
 	app.use('/api/v1/setting/claims_supported',require('./v1/api_setting_claims_supported.js'));
 	app.use('/api/v1/setting/get/directory_domain',require('./v1/api_setting_getdirectory_domain.js'));
 	app.use('/api/v1/setting/directory_domain',require('./v1/api_setting_directory_domain.js'));
+	app.use('/api/v1/setting/get/directory_mode',require('./v1/api_setting_getdirectory_mode.js'));
+	app.use('/api/v1/setting/directory_mode',require('./v1/api_setting_directory_mode.js'));
 	// EndPoint Summary
 	app.use('/api/v1/endpoint/summary',require('./v1/api_endpoint_summary.js'));
 
