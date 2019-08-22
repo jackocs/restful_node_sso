@@ -112,6 +112,7 @@ var	app = express();
 	app.use('/api/v1/scope/add',require('./v1/api_scope_add.js'));
 	app.use('/api/v1/scope/delete',require('./v1/api_scope_delete.js'));
 	app.use('/api/v1/scope/edit',require('./v1/api_scope_edit.js'));
+	app.use('/api/v1/scope/attributes',require('./v1/api_scope_attributes.js'));
 	// Group Policy
 	app.use('/api/v1/groupPolicy/list',require('./v1/api_groupPolicy_list.js'));
 	app.use('/api/v1/groupPolicy/listAll',require('./v1/api_groupPolicy_listAll.js'));
@@ -123,6 +124,11 @@ var	app = express();
 	app.use('/api/v1/clients/add',require('./v1/api_clients_add.js'));
 	app.use('/api/v1/clients/edit',require('./v1/api_clients_edit.js'));
 	app.use('/api/v1/clients/delete',require('./v1/api_clients_delete.js'));
+	// Applications
+	app.use('/api/v1/applications/listAll',require('./v1/api_applications_listAll.js'));
+	app.use('/api/v1/applications',require('./v1/api_applications.js'));
+	app.use('/api/v1/applications/edit',require('./v1/api_applications_edit.js'));
+	app.use('/api/v1/applications/status',require('./v1/api_applications_status.js'));
 	// Monitor
 	app.use('/api/v1/monitors/concurrent',require('./v1/api_monitors_concurrent.js'));
 	app.use('/api/v1/monitors/webResponse',require('./v1/api_monitors_webResponse.js'));
@@ -139,7 +145,19 @@ var	app = express();
 	app.use('/api/v1/backup/files',require('./v1/api_backup_files.js'));
 	app.use('/api/v1/restore/all',require('./v1/api_restore_all.js')); // on local
 	app.use('/api/v1/restore/files',require('./v1/api_restore_files.js')); // on upload
-	//
+	// General Settings
+	app.use('/api/v1/setting/get/timeout',require('./v1/api_setting_gettimeout.js')); // on upload
+	app.use('/api/v1/setting/timeout',require('./v1/api_setting_timeout.js')); // on upload
+	app.use('/api/v1/setting/get/access_lifetime',require('./v1/api_setting_getaccess_lifetime.js')); // on upload
+	app.use('/api/v1/setting/access_lifetime',require('./v1/api_setting_access_lifetime.js')); // on upload
+	app.use('/api/v1/setting/get/refresh_token_lifetime',require('./v1/api_setting_getrefresh_token_lifetime.js')); // on upload
+	app.use('/api/v1/setting/refresh_token_lifetime',require('./v1/api_setting_refresh_token_lifetime.js')); // on upload
+	app.use('/api/v1/setting/get/claims_supported',require('./v1/api_setting_getclaims_supported.js'));
+	app.use('/api/v1/setting/claims_supported',require('./v1/api_setting_claims_supported.js'));
+	app.use('/api/v1/setting/get/directory_domain',require('./v1/api_setting_getdirectory_domain.js'));
+	app.use('/api/v1/setting/directory_domain',require('./v1/api_setting_directory_domain.js'));
+	// EndPoint Summary
+	app.use('/api/v1/endpoint/summary',require('./v1/api_endpoint_summary.js'));
 
 	app.get('/api/v1/query',function(req, res){
 		res.send(JSON.stringify(req.query));

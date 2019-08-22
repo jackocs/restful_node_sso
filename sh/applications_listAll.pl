@@ -30,7 +30,7 @@ my $dsn = "DBI:$driver:database=$database;host=$host;";
 my $dbh = DBI->connect($dsn, $userid, $password ,{mysql_enable_utf8 => 1}) or die $DBI::errstr;
 
 #my $sql = "select * from oauth_clients order by client_id";
-my $sql = "select group_policy_id,client_use,client_secret,client_details,client_id,redirect_uri,grant_types,client_name,scope from oauth_clients where client_types not in ('saml') order by client_name";
+my $sql = "select group_policy_id,client_use,client_secret,client_details,client_id,redirect_uri,grant_types,client_name,scope from oauth_clients where client_types='saml' order by client_name";
 
 
 my $sth = $dbh->prepare("$sql");
