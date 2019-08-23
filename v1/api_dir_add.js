@@ -64,17 +64,24 @@ router.post('', function(req, res) {
 		  let is_default = 0;
 		  connection.query("select COUNT(*) as de from oauth_directory where is_default='1'", function (error, results, fields) {
 		  if (error) {
-		    result = {'status':'fail','result': error.message}; return res.json(result);                                                                                              	   }else{                                                                                                                      
+		    result = {'status':'fail','result': error.message}; return res.json(result);                                                                                              	   
+		  }else{ 
 		    if(results[0].de === 0){
 			is_default = 1;
 		    }
 
+		  let orders = 1;
 		  connection.query("select id from oauth_directory order by id desc limit 1", function (error, results, fields) {
 		  if (error) {
-		    result = {'status':'fail','result': error.message}; return res.json(result);                                                                                              	   }else{                                                                                                                      
-		    let orders = results[0].id + 1;
+		    	result = {'status':'fail','result': error.message};
+			return res.json(result);                                                                                              	   
+		  }else{ 
+			if(results[0]){
+				orders = results[0].id + 1;
+			}
 
-	   	        connection.query("select value from oauth_conf where conf='secret_key'", function (error, results, fields) {                                                      if (error) {
+	   	        	connection.query("select value from oauth_conf where conf='secret_key'", function (error, results, fields) {                                                      
+				if (error) {
                     		result = {'status':'fail','result': error.message};                                                                     
                     		return res.json(result);                                                                                                
                		     }else{                                                                                                                      
@@ -107,8 +114,11 @@ router.post('', function(req, res) {
                 	    }                                                                                                                           
             		});   
 
+			//}
+
 			}
             		});   
+
 			}
             		});   
 
