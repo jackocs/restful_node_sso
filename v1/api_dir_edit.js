@@ -21,6 +21,7 @@ router.post('', function(req, res) {
         req.body.domain === undefined || req.body.domain === null ||
         req.body.base_dn === undefined || req.body.base_dn === null ||
         req.body.host === undefined || req.body.host === null ||
+        req.body.orders === undefined || req.body.orders === null ||
         req.body.type === undefined || req.body.type === null
         ){
             result = {'status':'fail','result': 'Undefined Value Found'};
@@ -36,6 +37,7 @@ router.post('', function(req, res) {
     var domain=req.body.domain.trim().toLowerCase();
     var base_dn=req.body.base_dn.trim().toLowerCase();
     var host=req.body.host.trim();
+    var orders=req.body.orders.trim();
     var type=req.body.type.trim();
 
     var config = require('../config.js');
@@ -75,9 +77,9 @@ router.post('', function(req, res) {
     		    	      	    child = exec("php /home/restful_node_sso/v1/stringEncryption.php 'encrypt' "+ pw +" "+ secret_key +" ", function (error, stdout, stderr) {
 	         	      		pw = stdout;
 			  		//console.log('pw_new: '+ pw);
-					var sql = "UPDATE oauth_directory set domain=?,host=?,ip=?,base_dn=?,port=?,type=?,filter=?,principal=?,pw=? WHERE id=?";
-	    	        		var values = [[domain, host, ip, base_dn, port, type, filter, principal, pw ,id],];
-	    				connection.query(sql, [domain, host, ip, base_dn, port, type, filter, principal, pw ,id], function (error, results, fields) {
+					var sql = "UPDATE oauth_directory set domain=?,host=?,ip=?,base_dn=?,port=?,type=?,filter=?,principal=?,pw=?,orders=? WHERE id=?";
+	    	        		var values = [[domain, host, ip, base_dn, port, type, filter, principal, pw,orders ,id],];
+	    				connection.query(sql, [domain, host, ip, base_dn, port, type, filter, principal, pw, orders ,id], function (error, results, fields) {
 					    if (error) {
                     				result = {'status':'fail','result': error.message};
                     				return res.json(result);

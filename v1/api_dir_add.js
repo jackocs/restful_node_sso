@@ -60,7 +60,20 @@ router.post('', function(req, res) {
                     	result = {'status':'fail','result':'already exists error' };                                                                     
                     	return res.json(result);                                                                                                
 		    }else{
-		
+
+		  let is_default = 0;
+		  connection.query("select COUNT(*) as de from oauth_directory where is_default='1'", function (error, results, fields) {
+		  if (error) {
+		    result = {'status':'fail','result': error.message}; return res.json(result);                                                                                              	   }else{                                                                                                                      
+		    if(results[0].de === 0){
+			is_default = 1;
+		    }
+
+		  connection.query("select id from oauth_directory order by id desc limit 1", function (error, results, fields) {
+		  if (error) {
+		    result = {'status':'fail','result': error.message}; return res.json(result);                                                                                              	   }else{                                                                                                                      
+		    let orders = results[0].id + 1;
+
 	   	        connection.query("select value from oauth_conf where conf='secret_key'", function (error, results, fields) {                                                      if (error) {
                     		result = {'status':'fail','result': error.message};                                                                     
                     		return res.json(result);                                                                                                
@@ -68,8 +81,10 @@ router.post('', function(req, res) {
 		    	      let secret_key = results[0].value;
     		    	      child = exec("php /home/restful_node_sso/v1/stringEncryption.php 'encrypt' "+ pw +" "+ secret_key +" ", function (error, stdout, stderr) {
 	         		let secret_key_raw = stdout;
-	     	        	var sql = "INSERT INTO oauth_directory (domain,host,ip,base_dn,port,type,filter,principal,pw,is_default) VALUES ?";
-	    	        	var values = [[domain, host, ip, base_dn, port, type, filter, principal, secret_key_raw, 1],];
+	     	        	//var sql = "INSERT INTO oauth_directory (domain,host,ip,base_dn,port,type,filter,principal,pw,is_default) VALUES ?";
+	    	        	//var values = [[domain, host, ip, base_dn, port, type, filter, principal, secret_key_raw, 1],];
+	     	        	var sql = "INSERT INTO oauth_directory (domain,host,ip,base_dn,port,type,filter,principal,pw,is_default,orders) VALUES ?";
+	    	        	var values = [[domain, host, ip, base_dn, port, type, filter, principal, secret_key_raw,is_default,orders],];
 	    			connection.query(sql, [values], function (error, results, fields) {
 					if (error) {
                     				result = {'status':'fail','result': error.message};
@@ -90,6 +105,11 @@ router.post('', function(req, res) {
 	    			});
 		    	      });
                 	    }                                                                                                                           
+            		});   
+
+			}
+            		});   
+			}
             		});   
 
 		    }
