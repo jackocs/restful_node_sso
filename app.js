@@ -119,6 +119,7 @@ var	app = express();
 	app.use('/api/v1/scope/attributes',require('./v1/api_scope_attributes.js'));
 	// Group Policy
 	app.use('/api/v1/groupPolicy/list',require('./v1/api_groupPolicy_list.js'));
+	app.use('/api/v1/groupPolicy/listbyname',require('./v1/api_groupPolicy.js'));
 	app.use('/api/v1/groupPolicy/listAll',require('./v1/api_groupPolicy_listAll.js'));
 	app.use('/api/v1/groupPolicy/add',require('./v1/api_groupPolicy_add.js'));
 	app.use('/api/v1/groupPolicy/edit',require('./v1/api_groupPolicy_edit.js'));
@@ -129,6 +130,7 @@ var	app = express();
 	app.use('/api/v1/clients/add',require('./v1/api_clients_add.js'));
 	app.use('/api/v1/clients/edit',require('./v1/api_clients_edit.js'));
 	app.use('/api/v1/clients/delete',require('./v1/api_clients_delete.js'));
+	app.use('/api/v1/clients/status',require('./v1/api_clients_status.js'));
 	// Applications
 	app.use('/api/v1/applications/listAll',require('./v1/api_applications_listAll.js'));
 	app.use('/api/v1/applications',require('./v1/api_applications.js'));
