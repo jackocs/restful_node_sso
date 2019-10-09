@@ -111,6 +111,7 @@ var	app = express();
 	// Scope
 	app.use('/api/v1/scope/listObject',require('./v1/api_scope_list_object.js'));
 	app.use('/api/v1/scope/listAttributes',require('./v1/api_scope_list_attributes.js'));
+	app.use('/api/v1/scope/listAttributesAll',require('./v1/api_scope_list_attributes_all.js'));
 	app.use('/api/v1/scope/listAll',require('./v1/api_scope_listAll.js'));
 	app.use('/api/v1/scope/list',require('./v1/api_scope_list.js'));
 	app.use('/api/v1/scope/add',require('./v1/api_scope_add.js'));
