@@ -118,6 +118,10 @@ var	app = express();
 	app.use('/api/v1/scope/delete',require('./v1/api_scope_delete.js'));
 	app.use('/api/v1/scope/edit',require('./v1/api_scope_edit.js'));
 	app.use('/api/v1/scope/attributes',require('./v1/api_scope_attributes.js'));
+	// AD Attributes
+	app.use('/api/v1/ad/listAttributes',require('./v1/api_ad_list_attributes.js'));
+	app.use('/api/v1/ad/addAttributes',require('./v1/api_ad_addAttributes.js'));
+	app.use('/api/v1/ad/deleteAttributes',require('./v1/api_ad_deleteAttributes.js'));
 	// Group Policy
 	app.use('/api/v1/groupPolicy/list',require('./v1/api_groupPolicy_list.js'));
 	app.use('/api/v1/groupPolicy/listbyname',require('./v1/api_groupPolicy.js'));

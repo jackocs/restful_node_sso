@@ -41,13 +41,23 @@ router.get('/:id', function (req, res) {
 			let pw = results[0].pw;
 
 			if(results[0].type.toLowerCase() === 'ad'){
-            			connection.query("select * from oauth_objectclasses where type='AD'", function (error, results, fields) {
+            			//connection.query("select * from oauth_objectclasses where type='AD'", function (error, results, fields) {
+            			//connection.query("select attribute,is_default from oauth_objectclasses where type='AD'", function (error, results, fields) {
+            			//connection.query("select attribute from oauth_objectclasses where type='AD'", function (error, results, fields) {
+            			connection.query("select objectclass from oauth_objectclasses where type='AD' group by objectclass", function (error, results, fields) {
                 			if (error) {	result = {'status':'fail','result': error.message}; return res.json(result); }else{
-						//console.log(JSON.parse(results[0].attribute));
-						var arr = JSON.parse(results[0].attribute);
+						var list = [];
+						for (var i = results.length -1; i >= 0; i--){
+							//console.log(results[i].attribute);
+							//list.push(results[i].attribute);
+							list.push(results[i].objectclass);
+						}
+						//console.log(JSON.stringify(list));
+						//var arr = JSON.stringify(list);
+			//			var arr = JSON.parse(results[0].attribute);
 						//console.log(Object.keys(arr));
-						//let result = {'status':'ok','result':arr};
-						let result = {'status':'ok','result':Object.keys(arr)};
+						let result = {'status':'ok','result':list.sort()};
+						//let result = {'status':'ok','result':Object.keys(arr)};
 						res.json(result);
 					}                                                                                                                   
 

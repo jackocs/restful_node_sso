@@ -29,18 +29,18 @@ my $driver = "mysql";
 my $dsn = "DBI:$driver:database=$database;host=$host;";
 my $dbh = DBI->connect($dsn, $userid, $password ,{mysql_enable_utf8 => 1}) or die $DBI::errstr;
 
-my $sql = "select scope from oauth_scopes order by scope";
+my $sql = "select scope,defaults from oauth_scopes order by scope";
 
 my $sth = $dbh->prepare("$sql");
 my @output;
 my $string;
 $sth->execute() or die $DBI::errstr;
    if($sth->rows > 0){
-	#while (my $hr = $sth->fetchrow_hashref) {
-	while (my $row = $sth->fetchrow_arrayref) {
-    		#push @output, $hr;
+	while (my $hr = $sth->fetchrow_hashref) {
+	#while (my $row = $sth->fetchrow_arrayref) {
+    		push @output, $hr;
 #    		$row->{attribute} = decode_json($row->{attribute});
-    		push @output, @$row[0];
+    		#push @output, @$row[0];
     		#push @output,  \@decoded_json;
 	}
 	printf "OK#". JSON::to_json( \@output, {utf8 => 1}); 

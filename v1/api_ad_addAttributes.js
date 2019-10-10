@@ -12,15 +12,15 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 router.post('', function(req, res) {
-    if (req.body.scope === undefined || req.body.scope === null || 
-        req.body.attribute === undefined || req.body.attribute === null
+    if (req.body.attribute === undefined || req.body.attribute === null || 
+        req.body.description === undefined || req.body.description === null
         ){
             result = {'status':'fail','result': 'Undefined Value Found'};
             return res.json(result);
     }
 
-    var scope=req.body.scope.trim().toLowerCase();
-    var attribute=req.body.attribute.trim();
+    var attribute=req.body.attribute.trim().toLowerCase();
+    var description=req.body.description.trim();
 
     var config = require('../config.js');
     child = exec("docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db ", function (error, stdout, stderr) {
@@ -36,25 +36,23 @@ router.post('', function(req, res) {
 		result = {'status':'fail','result': err.stack};
                 return res.json(result);
             }
-	    connection.query("select COUNT(*) as count from oauth_scopes where scope='"+ scope +"'", function (error, results, fields) {                                                      
+	    connection.query("select COUNT(*) as count from oauth_objectclasses where attribute='"+ attribute +"'", function (error, results, fields) {                                                      
 		if (error) {
                     result = {'status':'fail','result': error.message};                                                                     
                     return res.json(result);                                                                                                 
 		}else{
-		    //console.log('Query result: ', results[0].count);
 		    if(results[0].count > 0){
                     	result = {'status':'fail','result':'already exists error' };                                                                     
                     	return res.json(result);                                                                                                
 		    }else{
-				var data = '{"'+scope+'":'+attribute+'}';
-	     	        	var sql = "INSERT INTO oauth_scopes (scope,is_default,attribute,defaults) VALUES ?";
-	    	        	var values = [[scope, 0, data, 1],];
+	     	        	var sql = "INSERT INTO oauth_objectclasses (attribute,objectclass,type,description,is_default) VALUES ?";
+	    	        	var values = [[attribute, 'user', 'AD', description, 0],];
 	    			connection.query(sql, [values], function (error, results, fields) {
 					if (error) {
                     				result = {'status':'fail','result': error.message};
                     				return res.json(result);
 					}else{
-						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_scopes add "+ scope, function (error, stdout, stderr) {
+						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_objectclasses add "+ attribute, function (error, stdout, stderr) {
                                                         if (error !== null) {
                                                                 result = {'status':'fail','result': error};
                                                                 return res.json(result);
@@ -63,11 +61,8 @@ router.post('', function(req, res) {
                                                                 return res.json(result);
                                                         }
                                                 });
-                    				//result = {'status':'ok','result':''};
-                    				//return res.json(result);
 					}
 	    			});
-
 		    }
 		}
 	

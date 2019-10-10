@@ -51,20 +51,23 @@ $sth->execute() or die $DBI::errstr;
 		my $pw = $row->{pw};    		
 		#printf "$type";
 		if($type eq 'ad'){
-			my $sql_ad = "select * from oauth_objectclasses where type='AD'";
+			my $sql_ad = "select attribute from oauth_objectclasses where type='AD'";
 			my $sth_ad = $dbh->prepare("$sql_ad");
 			$sth_ad->execute() or die $DBI::errstr;
 			if($sth_ad->rows > 0){
-				my $attribute = $sth_ad->fetchrow_hashref;
-				my $att = decode_json($attribute->{attribute});
-				my $aa =JSON::to_json( $att->{user}, {utf8 => 1});
-				my $arrayref = decode_json $aa;
-				foreach my $item(@$arrayref){
-					#print $item;
-					if($item ne ""){
-			        	   push @data, $item ;
-					}
-				}
+				#my $attribute = $sth_ad->fetchrow_hashref;
+				#my $att = decode_json($attribute->{attribute});
+				#my $aa =JSON::to_json( $att->{user}, {utf8 => 1});
+				#my $arrayref = decode_json $aa;
+        			while (my $hr = $sth_ad->fetchrow_array) {
+			                push @data, $hr;
+                                }
+				#foreach my $item(@$arrayref){
+				#	#print $item;
+				#	if($item ne ""){
+			        #	   push @data, $item ;
+				#	}
+				#}
 			}
 		}else{
 			my $sql_secret = "select value from oauth_conf where conf='secret_key'";
