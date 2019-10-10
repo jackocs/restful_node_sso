@@ -23,7 +23,7 @@ router.get('/', function (req, res) {
                 result = {'status':'fail','result': err.stack};                                                                                                 
                 return res.json(result);                                                                                                                        
             }                                                                                                                                                   
-	    connection.query("select attribute,is_default from oauth_objectclasses where type='AD' order by attribute", function (error, results, fields) {
+	    connection.query("select attribute,description,type,is_default from oauth_objectclasses where type='AD' order by attribute", function (error, results, fields) {
                 if (error) {                                                                                          
                     result = {'status':'fail','result': error.message};                                                                     
                     return res.json(result);                                                                                                                    
