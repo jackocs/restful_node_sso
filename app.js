@@ -108,6 +108,7 @@ var	app = express();
 	app.use('/api/v1/dir/edit',require('./v1/api_dir_edit.js'));
 	app.use('/api/v1/dir/status',require('./v1/api_dir_status.js'));
 	app.use('/api/v1/dir/orders',require('./v1/api_dir_orders.js'));
+	app.use('/api/v1/dir/is_default',require('./v1/api_dir_is_default.js'));
 	// Scope
 	app.use('/api/v1/scope/listObject',require('./v1/api_scope_list_object.js'));
 	app.use('/api/v1/scope/listAttributes',require('./v1/api_scope_list_attributes.js'));
