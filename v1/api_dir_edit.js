@@ -12,6 +12,7 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 router.post('', function(req, res) {
+    console.log("id:"+req.body.id+" ip:"+req.body.ip+" principal:"+req.body.principal+" pw:"+req.body.pw+" port:"+req.body.port+" filter:"+req.body.filter+" domain:"+req.body.domain+" base_dn:"+req.body.base_dn+" host:"+req.body.host+" orders:"+req.body.orders+" type:"+req.body.type);
     if (req.body.id === undefined || req.body.id === null || 
 	req.body.ip === undefined || req.body.ip === null ||
         req.body.principal === undefined || req.body.principal === null ||
