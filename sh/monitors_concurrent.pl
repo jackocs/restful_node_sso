@@ -15,7 +15,7 @@ my $detail=$ARGV[0];
 #my $hosts=$ARGV[1];
 
 # open the accessDB file to retrieve the database name, host name, user name and password
-#open(ACCESS_INFO, "/home/xIDM-SSO/mysql/db/accessDB") || die "Can't access login credentials";
+#open(ACCESS_INFO, "/home/xIDM-SSO-Cent8/mysql/db/accessDB") || die "Can't access login credentials";
 
 #my $database = <ACCESS_INFO>;
 #my $host = <ACCESS_INFO>;

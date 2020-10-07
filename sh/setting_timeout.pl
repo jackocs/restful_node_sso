@@ -14,7 +14,7 @@ if ($num_args < 1) {
 my $second=$ARGV[0];
 
 # open the accessDB file to retrieve the database name, host name, user name and password
-open(ACCESS_INFO, "/home/xIDM-SSO/mysql/db/accessDB") || die "Can't access login credentials";
+open(ACCESS_INFO, "/home/xIDM-SSO-Cent8/mysql/db/accessDB") || die "Can't access login credentials";
 
 my $database = <ACCESS_INFO>;
 my $host = <ACCESS_INFO>;
@@ -36,7 +36,7 @@ my $string;
 
 $sth->execute() or die printf 'fail#[]';
 
-system("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_conf update");
+system("php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php oauth_conf update");
 
 printf 'OK#[]';
 

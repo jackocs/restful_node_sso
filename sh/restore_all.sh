@@ -20,7 +20,7 @@ if [ ! -d $BACKUP_PATH ] ; then
     exit
 fi
 
-conf_file="/home/xIDM-SSO/api_db.env"
+conf_file="/home/xIDM-SSO-Cent8/api_db.env"
 
 if [ -f "$conf_file" ] ; then
     while IFS= read -r line; do
@@ -49,7 +49,7 @@ if [ -f "$conf_file" ] ; then
 
     if [ -f "$BACKUP_PATH/backupDB.sql" ] ; then
         cat $BACKUP_PATH/backupDB.sql | docker exec -i db /usr/bin/mysql -uroot -p"$MYSQL_PASSWORD"
-	/bin/php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php 
+	/bin/php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php 
 
 	printf "ok#[]"
         #cat $BACKUP_PATH/backupDB.sql 

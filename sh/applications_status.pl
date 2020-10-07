@@ -15,7 +15,7 @@ my $client_id=$ARGV[0];
 my $status=$ARGV[1];
 
 # open the accessDB file to retrieve the database name, host name, user name and password
-open(ACCESS_INFO, "/home/xIDM-SSO/mysql/db/accessDB") || die "Can't access login credentials";
+open(ACCESS_INFO, "/home/xIDM-SSO-Cent8/mysql/db/accessDB") || die "Can't access login credentials";
 
 my $database = <ACCESS_INFO>;
 my $host = <ACCESS_INFO>;
@@ -37,7 +37,7 @@ my $string;
 
 $sth->execute() or die printf 'fail#[]';
 
-system("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_clients update");
+system("php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php oauth_clients update");
 
 printf 'OK#[]';
 

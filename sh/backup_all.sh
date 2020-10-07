@@ -7,7 +7,7 @@ BACKUP_PATH=/home/restful_node_sso/backup/${TIMESTAMP}
 
 if [ -d ${BACKUP_PATH} ] ; then
     # backup DB
-    conf_file="/home/xIDM-SSO/api_db.env"
+    conf_file="/home/xIDM-SSO-Cent8/api_db.env"
 
     if [ -f "$conf_file" ] ; then
         while IFS= read -r line; do

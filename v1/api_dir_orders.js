@@ -64,7 +64,7 @@ router.get('/:id/:orders', function (req, res) {
                     				result = {'status':'fail','result': error.message};
                     				return res.json(result);
 					}else{
-						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_directory edit "+ id, function (error, stdout, stderr) {
+						exec("php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php oauth_directory edit "+ id, function (error, stdout, stderr) {
                                                         if (error !== null) {
                                                                 result = {'status':'fail','result': error};
                                                                 return res.json(result);

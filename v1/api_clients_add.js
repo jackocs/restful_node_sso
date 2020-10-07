@@ -75,7 +75,7 @@ router.post('', function(req, res) {
                     				return res.json(result);
 					}else{
 
-						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_clients add "+ client_id, function (error, stdout, stderr) {
+						exec("php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php oauth_clients add "+ client_id, function (error, stdout, stderr) {
         						if (error !== null) {
 						                result = {'status':'fail','result': error};
 						                return res.json(result);

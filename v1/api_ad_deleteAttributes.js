@@ -40,7 +40,7 @@ router.get('/:attribute', function (req, res) {
 						let result = {'status':'fail','result': error.message};
 						return res.json(result); 
 					}else{
-						exec("php /home/xIDM-SSO/sso/idp/config/mysql2redis_local.php oauth_objectclasses delete "+ attribute, function (error, stdout, stderr) {
+						exec("php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php oauth_objectclasses delete "+ attribute, function (error, stdout, stderr) {
                                                         if (error !== null) {
                                                                 result = {'status':'fail','result': error};
                                                                 return res.json(result);
