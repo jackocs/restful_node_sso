@@ -37,25 +37,67 @@ router.get('/:id/:orders', function (req, res) {
 		result = {'status':'fail','result': err.stack};
                 return res.json(result);
             }
-	    connection.query("select COUNT(*) as count from oauth_directory where id='"+ id +"'", function (error, results, fields) {                                                      
+	    //connection.query("select COUNT(*) as count from oauth_directory where id='"+ id +"'", function (error, results, fields) {                                                      
+	    connection.query("select orders from oauth_directory where id='"+ id +"'", function (error, results, fields) {                                                      
 		if (error) {
                     result = {'status':'fail','result': error.message};                                                                     
                     return res.json(result);                                                                                                
 		}else{
 		    //console.log('Query result: ', results[0].count);
-		    if(results[0].count === 0){
+		    //if(results[0].count === 0){
+		    if(results[0].orders === 0){
                     	result = {'status':'fail','result':'Null value error' };                                                                     
                     	return res.json(result);                                                                                                
 		    }else{
-
-			connection.query("select COUNT(*) as count from oauth_directory where orders='"+ ord +"'", function (error, results, fields) { 
+			var new_orders = results[0].orders;
+			//connection.query("select COUNT(*) as count from oauth_directory where orders='"+ ord +"'", function (error, results, fields) { 
+			connection.query("select id from oauth_directory where orders='"+ ord +"'", function (error, results, fields) { 
 			if (error) {
                     		result = {'status':'fail','result': error.message};                                                                                         
                     		return res.json(result);                                                                                                                    
                 	}else{
-				if(results[0].count > 0){                                                                                                                 
-                    		    	result = {'status':'fail','result':'order id already' };                                                                                
-                        		return res.json(result);                                                                                                                
+				if(results[0].id > 0){                                                                                                                 
+                    		    	//result = {'status':'fail','result':'order id already id '+ results[0].id};                                                                                
+                        		//return res.json(result);                                                                                                                
+					var old_id = results[0].id;
+					var sql = "UPDATE oauth_directory SET `orders` ='99999' WHERE `id` ='"+ results[0].id +"'";
+                                	connection.query(sql, function (error, results, fields) {
+						if (error) {
+                    					result = {'status':'fail','result': error.message};
+                    					return res.json(result);
+						}else{
+						  var sql = "UPDATE oauth_directory SET `orders` ='"+ ord +"' WHERE `id` ='"+ id  +"'";
+		                                  connection.query(sql, function (error, results, fields) {
+				  	  	  if (error) {
+                    				  	result = {'status':'fail','result': error.message};
+                    					return res.json(result);
+						  }else{
+							  
+							var sql = "UPDATE oauth_directory SET `orders` ='"+ new_orders +"' WHERE `id` ='"+ old_id +"'";
+                        			        connection.query(sql, function (error, results, fields) {
+								if (error) {
+                    						  result = {'status':'fail','result': error.message};
+                    						  return res.json(result);
+								}else{
+								  exec("php /home/xIDM-SSO-Cent8/sso/idp/config/mysql2redis_local.php oauth_directory edit "+ id, function (error, stdout, stderr) {
+                                                        		if (error !== null) {
+                                                                  	 result = {'status':'fail','result': error};
+                                                                 	 return res.json(result);
+                                                        		}else{
+                                                                	  result = {'status':'ok','result':''};
+                                                                	  return res.json(result);
+                                                        		}
+                                                		  });
+								}
+	    						});
+
+						  }
+	    					  });
+
+
+
+						}
+	    				});
                     		}else{
 
 				var sql = "UPDATE oauth_directory SET `orders` ='"+ ord +"' WHERE `id` ='"+ id  +"'";
