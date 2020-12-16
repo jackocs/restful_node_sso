@@ -29,7 +29,7 @@ my $driver = "mysql";
 my $dsn = "DBI:$driver:database=$database;host=$host;";
 my $dbh = DBI->connect($dsn, $userid, $password ,{mysql_enable_utf8 => 1}) or die $DBI::errstr;
 
-my $sql = "select scope,defaults from oauth_scopes order by scope";
+my $sql = "select scope,defaults from oauth_scopes where types='oauth' order by scope";
 
 my $sth = $dbh->prepare("$sql");
 my @output;

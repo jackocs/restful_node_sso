@@ -78,23 +78,24 @@ $sth->execute() or die $DBI::errstr;
 				#printf "$secret_key->{value}";
 				my $passwd = `php /home/restful_node_sso/v1/stringEncryption.php 'decrypt' $pw  $secret_key->{value}`;
 				#my $attb = `perl /home/restful_node_sso/sh/scope_list_attribute_all.pl $ip $port $principal $secret_key_raw`;
+				#
+				#my $ldap = Net::LDAP->new ( $ip , port => $port , timeout=>30) or die printf 'fail#["Could not connect"]';
+				if (my $ldap = Net::LDAP->new ( $ip , port => $port , timeout=>2)) {
+					my $mesg = $ldap->bind( $admin, password => $passwd ) || die printf 'fail#["Could not bind"]';
 
-				my $ldap = Net::LDAP->new ( $ip , port => $port , timeout=>30) or die printf 'fail#["Could not connect"]';
+					if ( $mesg->code ) {
+				        	printf 'fail#["Could not bind"]';
+				        	exit;
+					}
 
-				my $mesg = $ldap->bind( $admin, password => $passwd ) || die printf 'fail#["Could not bind"]';
-
-				if ( $mesg->code ) {
-				        printf 'fail#["Could not bind"]';
-				        exit;
+					my $schema = $ldap->schema();
+					# Get the attributes
+					my @atts = $schema->all_attributes;
+					foreach my $oc (@atts){
+			        		push @data, $oc->{name};
+					}
+					$ldap->unbind();
 				}
-
-				my $schema = $ldap->schema();
-				# Get the attributes
-				my @atts = $schema->all_attributes;
-				foreach my $oc (@atts){
-			        	push @data, $oc->{name};
-				}
-				$ldap->unbind();
 			}
 		}
 	}

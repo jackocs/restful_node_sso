@@ -11,6 +11,12 @@ var ldap = require('ldapjs');
 router.get('/:client_id', function (req, res) {
 	var client_id=req.params.client_id.trim();
 	var config = require('../config.js');
+
+	if (client_id === 'bd4de2d6455972c22dd1f1e7bee1a120e19'){
+		result = {'status':'fail','result': 'Client ID portal'};
+		return res.json(result);                                                                                               
+	}
+
 	child = exec("docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db ", function (error, stdout, stderr) {
         if (error !== null) {
                 result = {'status':'fail','result': error};

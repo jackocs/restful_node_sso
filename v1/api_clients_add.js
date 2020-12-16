@@ -80,7 +80,7 @@ router.post('', function(req, res) {
 						                result = {'status':'fail','result': error};
 						                return res.json(result);
 						        }else{
-                    						result = {'status':'ok','result':''};
+                    						result = {'status':'ok','result': client_id};
                     						return res.json(result);
 							}
 			    			});

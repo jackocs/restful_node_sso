@@ -29,7 +29,7 @@ my $driver = "mysql";
 my $dsn = "DBI:$driver:database=$database;host=$host;";
 my $dbh = DBI->connect($dsn, $userid, $password ,{mysql_enable_utf8 => 1}) or die $DBI::errstr;
 
-my $sql = "select * from oauth_scopes order by scope";
+my $sql = "select * from oauth_scopes where types='oauth' order by scope";
 #my $sql = "select group_policy_id,client_use,client_secret,client_details,client_id,redirect_uri,grant_types,client_name,scope from oauth_clients order by client_name";
 
 my $sth = $dbh->prepare("$sql");
@@ -37,15 +37,16 @@ my @output;
 my $string;
 $sth->execute() or die $DBI::errstr;
    if($sth->rows > 0){
-	#while (my $hr = $sth->fetchrow_hashref) {
 	while (my $row = $sth->fetchrow_hashref) {
+		#printf $row->{attribute}."\n";
     		#push @output, $hr;
-    		$row->{attribute} = decode_json($row->{attribute});
-#		printf "OK#". JSON::to_json( \@decoded_json, {utf8 => 1}); 
-    		push @output, $row;
+		$row->{attribute} = decode_json($row->{attribute});
+		push @output, $row;
+		#push ($aaa, $row->{attribute});
     		#push @output,  \@decoded_json;
 	}
-	printf "OK#". JSON::to_json( \@output, {utf8 => 1}); 
+	#printf "OK#". JSON::to_json( \@output, {utf8 => 1}); 
+	printf "OK#". encode_json(\@output); 
 
    }else{
 	printf 'OK#[]';
