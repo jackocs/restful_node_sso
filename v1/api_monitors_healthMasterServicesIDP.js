@@ -6,10 +6,10 @@ var exec = require("child_process").exec;
 var split = require("split-string");
 var child;
 
-router.get("/:hour", function (req, res) {
-  var hour = req.params.hour.trim();
+router.get("/", function (req, res) {
+  //var hour = req.params.hour.trim();
   child = exec(
-    "/home/restful_node_sso/sh/monitors_healthMasterServicesIDP.py " + hour,
+    "/home/restful_node_sso/sh/monitors_healthMasterServicesIDP.py ",
     function (error, stdout, stderr) {
       try {
         let output = stdout.split("#");
