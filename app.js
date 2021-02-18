@@ -9,7 +9,6 @@ var permit_file = './permit.json';
 var port = process.env.PORT || port_no;
 var permit_list = [];
 
-//////// Permission Router Begin
 function permission_load(){
 	try{
 		permit_list = require(permit_file).ip;
@@ -143,12 +142,25 @@ var	app = express();
 	app.use('/api/v1/applications/edit',require('./v1/api_applications_edit.js'));
 	app.use('/api/v1/applications/status',require('./v1/api_applications_status.js'));
 	// Monitor
+	app.use('/api/v1/monitors/healthIDP',require('./v1/api_monitors_healthIDP.js'));
+	app.use('/api/v1/monitors/healthMasterIDP',require('./v1/api_monitors_healthMasterIDP.js'));
+	app.use('/api/v1/monitors/healthMasterServicesIDP',require('./v1/api_monitors_healthMasterServicesIDP.js'));
+	app.use('/api/v1/monitors/topApplications',require('./v1/api_monitors_topApplications.js'));
+	app.use('/api/v1/monitors/lastAuthentication',require('./v1/api_monitors_lastAuthentication.js'));
+	app.use('/api/v1/monitors/monthlySummary',require('./v1/api_monitors_monthlySummary.js'));
+	app.use('/api/v1/monitors/totalclientapp',require('./v1/api_monitors_clientAppcount.js'));
 	app.use('/api/v1/monitors/concurrent',require('./v1/api_monitors_concurrent.js'));
+	app.use('/api/v1/monitors/responsetime',require('./v1/api_monitors_responsetime.js'));
+	app.use('/api/v1/monitors/resources',require('./v1/api_monitors_resources.js'));
 	app.use('/api/v1/monitors/webResponse',require('./v1/api_monitors_webResponse.js'));
 	app.use('/api/v1/monitors/docker',require('./v1/api_monitors_docker.js'));
 	// Report
+	app.use('/api/v1/report/authSummary',require('./v1/api_report_authSummary.js'));
+	app.use('/api/v1/report/authSummary/apps',require('./v1/api_report_authSummaryApps.js'));
+	app.use('/api/v1/report/monthlySummary',require('./v1/api_report_monthlySummaryApps.js'));
 	app.use('/api/v1/report/concurrent',require('./v1/api_report_concurrent.js'));
 	app.use('/api/v1/report/users',require('./v1/api_report_users.js'));
+	app.use('/api/v1/report/usertops',require('./v1/api_report_usertop.js'));
 	app.use('/api/v1/report/apps/top',require('./v1/api_report_appsTop.js'));
 	app.use('/api/v1/report/apps',require('./v1/api_report_apps.js'));
 	// Backup
