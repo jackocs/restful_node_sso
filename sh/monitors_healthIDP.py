@@ -22,13 +22,17 @@ try:
 	up = 0
 	down = 0
 	status = "ok"
+	list_up = []
+	list_down = []
 	for point in result.get_points():
 		#print(point)
 		if point['status'] == 'UP':
 			up = up + 1
+			list_up.append(point['idp'])
 		else:
 			down = down + 1
 			status = "warning"
+			list_down.append(point['idp'])
 		i = i+1
 	if down == i:
 		status = "critical"
@@ -38,7 +42,9 @@ try:
 	"nodes": i,
 	"up": up,
 	"down": down,
-	"status": str(status)
+	"status": str(status),
+	"list_up": list_up,
+	"list_down": list_down
 	}
 	#print(result_text)
 	print("ok#%s" % result_text)
