@@ -146,6 +146,7 @@ var	app = express();
 	app.use('/api/v1/monitors/healthMasterIDP',require('./v1/api_monitors_healthMasterIDP.js'));
 	app.use('/api/v1/monitors/healthMasterServicesIDP',require('./v1/api_monitors_healthMasterServicesIDP.js'));
 	app.use('/api/v1/monitors/topApplications',require('./v1/api_monitors_topApplications.js'));
+	app.use('/api/v1/monitors/totalUsers',require('./v1/api_monitors_totalUsers.js'));
 	app.use('/api/v1/monitors/lastAuthentication',require('./v1/api_monitors_lastAuthentication.js'));
 	app.use('/api/v1/monitors/monthlySummary',require('./v1/api_monitors_monthlySummary.js'));
 	app.use('/api/v1/monitors/totalclientapp',require('./v1/api_monitors_clientAppcount.js'));

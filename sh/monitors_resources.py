@@ -29,7 +29,8 @@ def query_resources():
 			"ram_percent": str(ram_percent) + "%",
 			"storage_total": str(round(point['stotal']/ 1024 /1024 /1024, 2)) + "Gb",
 			"storage_use": str(round(storage_use / 1024 /1024 /1024, 2)) + "Gb",
-			"storage_percent": str(storage_percent) + "%"
+			"storage_percent": str(storage_percent) + "%",
+			"uptime": str(point['uptime'])
 		}
 		#print(result_text)
 		print("ok#%s" % result_text)

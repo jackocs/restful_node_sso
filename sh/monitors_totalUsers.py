@@ -18,11 +18,14 @@ r = redis.Redis(host='127.0.0.1',password=REDIS_PASSWORD, port=16379, db=0)
 #client_name = json.loads(client_name)
 #print(client_name['client_name'])
 
-def query_topapplication(last_hour_date_time):
-	select_clause = "select count(auth) as auth from loginlogs where time > '"+last_hour_date_time+"'  group by client_id"
+def query_totalUsers(last_hour_date_time):
+	#select_clause = "select count(auth) as auth from loginlogs where time > '"+last_hour_date_time+"'  group by client_id"
+	select_clause = "select count(auth) from loginlogs where auth='true' and time > '"+last_hour_date_time+"' group by uid"
 	result = client.query(select_clause)
-	app = {}
-	#print(result)
+	users = {}
+	users['users'] = len(result)
+	#print(len(result))
+	"""
 	#for point in result:
 	for k,v in result.items():
 		#print(k)
@@ -34,8 +37,8 @@ def query_topapplication(last_hour_date_time):
 				app[client_name['client_name']] = point['auth']
 			else:
 				app['none'] = point['auth']
-				
-	print("ok#%s" % app)
+	"""
+	print("ok#%s" % users)
 
 try:
 	if sys.argv[1]:
@@ -45,6 +48,6 @@ try:
 			#hour = 8760 # 365 day
 			last_hour_date_time = datetime.now() - timedelta(hours = hour)
 			#print(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
-			query_topapplication(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
+			query_totalUsers(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
 except:
 	print('fail#["Unknown query"]', end='')
