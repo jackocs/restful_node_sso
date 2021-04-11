@@ -23,7 +23,8 @@ router.get("/:apps/:start/:end", function (req, res) {
     function (error, stdout, stderr) {
       let output = stdout.split("#");
       try {
-        result = { status: output[0].trim(), result: output[1].trim() };
+        var myObj = JSON.parse(output[1].trim());
+        result = { status: output[0].trim(), result: myObj };
         res.json(result);
       } catch (error) {
         //console.error(error);

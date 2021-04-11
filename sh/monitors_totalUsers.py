@@ -38,7 +38,9 @@ def query_totalUsers(last_hour_date_time):
 			else:
 				app['none'] = point['auth']
 	"""
-	print("ok#%s" % users)
+	#print("ok#%s" % users)
+	result_json = json.dumps(users)
+	print("ok#%s" % result_json)
 
 try:
 	if sys.argv[1]:

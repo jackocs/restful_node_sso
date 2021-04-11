@@ -83,7 +83,9 @@ def query_authSummary(tops, status, start, end):
 			data_top.append(d)
 		i = i + 1
 		
-	print("ok#%s" % data_top)
+	#print("ok#%s" % data_top)
+	result_json = json.dumps(data_top)
+	print("ok#%s" % result_json)
 
 	"""
 	result_text = {

@@ -25,7 +25,8 @@ router.get("/:users/:domain/:start/:stop", function (req, res) {
 
       try {
         let output = stdout.split("#");
-        result = { status: output[0].trim(), result: output[1].trim() };
+        var myObj = JSON.parse(output[1].trim());
+        result = { status: output[0].trim(), result: myObj };
         res.json(result);
       } catch (er) {
         result = { status: "fail", result: er };

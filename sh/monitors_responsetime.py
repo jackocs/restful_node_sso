@@ -32,7 +32,8 @@ def query_responsetime(last_hour_date_time):
 			#print(point_idp)
 		data[point['idp']] = rtime
 	data["datetime"] = datetime
-	print("ok#%s" % data)
+	result_json = json.dumps(data)
+	print("ok#%s" % result_json)
 
 try:
 	if sys.argv[1]:

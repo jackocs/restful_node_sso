@@ -101,7 +101,9 @@ def query_authSummary(user, domain, start, end):
 	#print(result_text)
 	
 	"""
-	print("ok#%s" % data)
+	#print("ok#%s" % data)
+	result_json = json.dumps(data)
+	print("ok#%s" % result_json)
 
 try:
 	if sys.argv[1] and sys.argv[2]:

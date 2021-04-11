@@ -47,6 +47,7 @@ try:
 	"list_down": list_down
 	}
 	#print(result_text)
-	print("ok#%s" % result_text)
+	result_json = json.dumps(result_text)
+	print("ok#%s" % result_json)
 except:
 	print('fail#["Unknown query"]', end='')

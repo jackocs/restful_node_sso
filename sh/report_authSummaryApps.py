@@ -69,7 +69,8 @@ def query_authSummaryApps(apps, start, end):
 		"failed": month_failed
 	}
 	#print(result_text)
-	print("ok#%s" % result_text)
+	result_json = json.dumps(result_text)
+	print("ok#%s" % result_json)
 
 
 try:

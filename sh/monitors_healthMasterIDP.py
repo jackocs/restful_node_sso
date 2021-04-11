@@ -45,7 +45,8 @@ try:
 		"report": container['report']	
 	}
 	#print(result_text)
-	print("ok#%s" % result_text)
+	result_json = json.dumps(result_text)
+	print("ok#%s" % result_json)
 	
 except:
 	print('fail#["Unknown query"]', end='')

@@ -73,8 +73,8 @@ def query_authSummary(last_hour_date_time, datenow):
 		"total": total
 	}
 	#print(result_text)
-	print("ok#%s" % result_text)
-
+	result_json = json.dumps(result_text)
+	print("ok#%s" % result_json)
 
 try:
 	if sys.argv[1]:

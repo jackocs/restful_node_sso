@@ -13,7 +13,9 @@ router.get("/", function (req, res) {
     function (error, stdout, stderr) {
       try {
         let output = stdout.split("#");
-        result = { status: output[0].trim(), result: output[1].trim() };
+        var myObj = JSON.parse(output[1].trim());
+        result = { status: output[0].trim(), result: myObj };
+        //result = { status: output[0].trim(), result: output[1].trim() };
         res.json(result);
       } catch (error) {
         //console.error(error);

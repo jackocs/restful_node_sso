@@ -87,7 +87,9 @@ def query_monthlySummaryApps(apps, month):
 	monthlySummary['failed'] = month_failed
 	monthlySummary['sum'] = month_sum
 
-	print("ok#%s" % monthlySummary)
+	#print("ok#%s" % monthlySummary)
+	result_json = json.dumps(monthlySummary)
+	print("ok#%s" % result_json)
 
 try:
 	if sys.argv[1] and sys.argv[2]:

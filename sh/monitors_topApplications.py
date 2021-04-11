@@ -35,7 +35,8 @@ def query_topapplication(last_hour_date_time):
 			else:
 				app['none'] = point['auth']
 				
-	print("ok#%s" % app)
+	result_json = json.dumps(app)
+	print("ok#%s" % result_json)
 
 try:
 	if sys.argv[1]:

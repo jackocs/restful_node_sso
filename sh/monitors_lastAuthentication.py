@@ -35,7 +35,8 @@ def query_topapplication(last_hour_date_time):
 			del value['policy']
 			#print(value)
 			topapplication.append(value)
-	print("ok#%s" % topapplication)
+	result_json = json.dumps(topapplication)
+	print("ok#%s" % result_json)
 
 try:
 	hour = 8760 # 365 day

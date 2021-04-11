@@ -47,7 +47,9 @@ def query_authSummary(start, end):
 			#print(k[1]['client_id'])
 			#print(point)
 	#print(app)
-	print("ok#%s" % app)
+	result_json = json.dumps(app)
+	print("ok#%s" % result_json)
+	
 
 	"""
 	monthfullmonth = []

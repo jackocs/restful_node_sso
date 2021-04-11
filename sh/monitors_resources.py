@@ -33,7 +33,8 @@ def query_resources():
 			"uptime": str(point['uptime'])
 		}
 		#print(result_text)
-		print("ok#%s" % result_text)
+		result_json = json.dumps(result_text)
+		print("ok#%s" % result_json)
 try:
 	query_resources()
 except:

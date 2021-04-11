@@ -38,7 +38,9 @@ def query_healtMasterServicesIDP():
 	
 	#data["datetime"] = datetime
 	#print("ok#%s" % data)
-	print("ok#%s" % data)
+	#print("ok#%s" % data)
+	result_json = json.dumps(data)
+	print("ok#%s" % result_json)
 
 	"""
 	select_clause = "select count(auth) as auth from loginlogs where time > '"+last_hour_date_time+"'  group by client_id"
