@@ -6,23 +6,33 @@ var exec = require("child_process").exec;
 var split = require("split-string");
 var child;
 
-router.get("/", function (req, res) {
+router.get("/:users/:domain/:start/:stop", function (req, res) {
   try {
+    var users = req.params.users.trim().toLowerCase();
+    var domain = req.params.domain.trim().toLowerCase();
+    var start = req.params.start.trim();
+    var stop = req.params.stop.trim();
+
     child = exec(
-      "/home/restful_node_sso/sh/setting_getaccess_lifetime.pl ",
+      "/home/restful_node_sso/sh/userSelfService_viewLoginHistory.py " +
+        users +
+        " " +
+        domain +
+        " " +
+        start +
+        " " +
+        stop,
       function (error, stdout, stderr) {
         try {
           let output = stdout.split("#");
-          //result = {'status':output[0].trim(),'result':output[1].trim()};
-          //res.json(result);
-          var arr = JSON.parse(output[1]);
-          let result = { status: output[0].trim(), result: arr };
+          var myObj = JSON.parse(output[1].trim());
+          result = { status: output[0].trim(), result: myObj };
           res.json(result);
-        } catch (error) {
-          //console.error(error);
+        } catch (er) {
           result = { status: "fail", result: "[]" };
           return res.json(result);
         }
+
         //res.json(the_json_array);
         console.log("stdout: " + stdout);
         console.log("stderr: " + stderr);

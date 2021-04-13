@@ -7,41 +7,46 @@ var split = require("split-string");
 var child;
 
 router.get("/:tops/:authtype/:start/:stop", function (req, res) {
-  var tops = req.params.tops.trim();
-  var authtype = req.params.authtype.trim();
-  var start = req.params.start.trim();
-  var stop = req.params.stop.trim();
+  try {
+    var tops = req.params.tops.trim();
+    var authtype = req.params.authtype.trim();
+    var start = req.params.start.trim();
+    var stop = req.params.stop.trim();
 
-  child = exec(
-    "/home/restful_node_sso/sh/report_usertop.py " +
-      tops +
-      " " +
-      authtype +
-      " " +
-      start +
-      " " +
-      stop,
-    function (error, stdout, stderr) {
+    child = exec(
+      "/home/restful_node_sso/sh/report_usertop.py " +
+        tops +
+        " " +
+        authtype +
+        " " +
+        start +
+        " " +
+        stop,
+      function (error, stdout, stderr) {
+        try {
+          let output = stdout.split("#");
+          var myObj = JSON.parse(output[1].trim());
+          result = { status: output[0].trim(), result: myObj };
+          //result = { status: output[0].trim(), result: output[1].trim() };
+          res.json(result);
+        } catch (er) {
+          result = { status: "fail", result: "[]" };
+          return res.json(result);
+        }
 
-      try {
-        let output = stdout.split("#");
-        var myObj = JSON.parse(output[1].trim());
-        result = { status: output[0].trim(), result: myObj };
-        //result = { status: output[0].trim(), result: output[1].trim() };
-        res.json(result);
-      } catch (er) {
-        result = { status: "fail", result: er };
-        return res.json(result);
+        //res.json(the_json_array);
+        console.log("stdout: " + stdout);
+        console.log("stderr: " + stderr);
+        if (error !== null) {
+          console.log("exec error: " + error);
+        }
       }
-
-      //res.json(the_json_array);
-      console.log("stdout: " + stdout);
-      console.log("stderr: " + stderr);
-      if (error !== null) {
-        console.log("exec error: " + error);
-      }
-    }
-  );
+    );
+  } catch (error) {
+    //console.error(error);
+    result = { status: "fail", result: "[]" };
+    return res.json(result);
+  }
 });
 
 module.exports = router;

@@ -49,4 +49,4 @@ try:
 	print("ok#%s" % result_json)
 	
 except:
-	print('fail#["Unknown query"]', end='')
+	print('fail#[]', end='')

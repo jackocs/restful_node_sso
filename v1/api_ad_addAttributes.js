@@ -31,7 +31,7 @@ router.post("", function (req, res) {
       "docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db ",
       function (error, stdout, stderr) {
         if (error !== null) {
-          result = { status: "fail", result: error };
+          result = { status: "fail", result: "[]" };
           return res.json(result);
         }
         config.host = stdout.trim();
@@ -39,7 +39,7 @@ router.post("", function (req, res) {
         let connection = mysql.createConnection(config);
         connection.connect(function (err) {
           if (err) {
-            result = { status: "fail", result: err.stack };
+            result = { status: "fail", result: "[]" };
             return res.json(result);
           }
           connection.query(
@@ -48,7 +48,7 @@ router.post("", function (req, res) {
               "'",
             function (error, results, fields) {
               if (error) {
-                result = { status: "fail", result: error.message };
+                result = { status: "fail", result: "[]" };
                 return res.json(result);
               } else {
                 if (results[0].count > 0) {
@@ -63,7 +63,7 @@ router.post("", function (req, res) {
                     [values],
                     function (error, results, fields) {
                       if (error) {
-                        result = { status: "fail", result: error.message };
+                        result = { status: "fail", result: "[]" };
                         return res.json(result);
                       } else {
                         exec(
@@ -71,7 +71,7 @@ router.post("", function (req, res) {
                             attribute,
                           function (error, stdout, stderr) {
                             if (error !== null) {
-                              result = { status: "fail", result: error };
+                              result = { status: "fail", result: "[]" };
                               return res.json(result);
                             } else {
                               result = { status: "ok", result: "" };
@@ -91,7 +91,7 @@ router.post("", function (req, res) {
     );
   } catch (error) {
     //console.error(error);
-    result = { status: "fail", result: error };
+    result = { status: "fail", result: "[]" };
     return res.json(result);
   }
 });

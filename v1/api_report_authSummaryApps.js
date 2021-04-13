@@ -7,37 +7,41 @@ var split = require("split-string");
 var child;
 
 router.get("/:apps/:start/:end", function (req, res) {
-  //router.get('/', function (req, res) {
+  try {
+    var apps = req.params.apps.trim();
+    var start = req.params.start.trim();
+    var end = req.params.end.trim();
 
-  var apps = req.params.apps.trim();
-  var start = req.params.start.trim();
-  var end = req.params.end.trim();
-
-  child = exec(
-    "/home/restful_node_sso/sh/report_authSummaryApps.py " +
-      apps +
-      " " +
-      start +
-      " " +
-      end,
-    function (error, stdout, stderr) {
-      let output = stdout.split("#");
-      try {
-        var myObj = JSON.parse(output[1].trim());
-        result = { status: output[0].trim(), result: myObj };
-        res.json(result);
-      } catch (error) {
-        //console.error(error);
-        result = { status: "fail", result: error };
-        return res.json(result);
+    child = exec(
+      "/home/restful_node_sso/sh/report_authSummaryApps.py " +
+        apps +
+        " " +
+        start +
+        " " +
+        end,
+      function (error, stdout, stderr) {
+        let output = stdout.split("#");
+        try {
+          var myObj = JSON.parse(output[1].trim());
+          result = { status: output[0].trim(), result: myObj };
+          res.json(result);
+        } catch (error) {
+          //console.error(error);
+          result = { status: "fail", result: "[]" };
+          return res.json(result);
+        }
+        console.log("stdout: " + stdout);
+        console.log("stderr: " + stderr);
+        if (error !== null) {
+          console.log("exec error: " + error);
+        }
       }
-      console.log("stdout: " + stdout);
-      console.log("stderr: " + stderr);
-      if (error !== null) {
-        console.log("exec error: " + error);
-      }
-    }
-  );
+    );
+  } catch (error) {
+    //console.error(error);
+    result = { status: "fail", result: "[]" };
+    return res.json(result);
+  }
 });
 
 module.exports = router;

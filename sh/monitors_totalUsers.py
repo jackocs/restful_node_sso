@@ -52,4 +52,4 @@ try:
 			#print(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
 			query_totalUsers(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
 except:
-	print('fail#["Unknown query"]', end='')
+	print('fail#[]', end='')

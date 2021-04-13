@@ -19,7 +19,7 @@ router.get("/:domain", function (req, res) {
         res.json(result);
       } catch (error) {
         //console.error(error);
-        result = { status: "fail", result: error };
+        result = { status: "fail", result: "[]" };
         return res.json(result);
       }
       //res.json(the_json_array);

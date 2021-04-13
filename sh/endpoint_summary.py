@@ -28,5 +28,5 @@ try:
 
 	print("ok#%s" % json.dumps(result))
 except:
-	print('fail#["Unknown connect EndPoint"]', end='')
+	print('fail#[]', end='')
 

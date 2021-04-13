@@ -50,4 +50,4 @@ try:
 	result_json = json.dumps(result_text)
 	print("ok#%s" % result_json)
 except:
-	print('fail#["Unknown query"]', end='')
+	print('fail#[]', end='')

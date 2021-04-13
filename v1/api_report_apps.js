@@ -7,34 +7,40 @@ var split = require("split-string");
 var child;
 
 router.get("/:id/:start/:stop", function (req, res) {
-  var id = req.params.id.trim();
-  var start = req.params.start.trim();
-  var stop = req.params.stop.trim();
+  try {
+    var id = req.params.id.trim();
+    var start = req.params.start.trim();
+    var stop = req.params.stop.trim();
 
-  child = exec(
-    "/home/restful_node_sso/sh/report_apps.py " + id + " " + start + " " + stop,
-    function (error, stdout, stderr) {
-      try {
-        let output = stdout.split("#");
-        //result = {'status':output[0].trim(),'result':output[1].trim()};
-        //res.json(result);
-        var arr = JSON.parse(output[1]);
-        let result = { status: output[0].trim(), result: arr };
+    child = exec(
+      "/home/restful_node_sso/sh/report_apps.py " + id + " " + start + " " + stop,
+      function (error, stdout, stderr) {
+        try {
+          let output = stdout.split("#");
+          //result = {'status':output[0].trim(),'result':output[1].trim()};
+          //res.json(result);
+          var arr = JSON.parse(output[1]);
+          let result = { status: output[0].trim(), result: arr };
 
-        res.json(result);
-      } catch (error) {
-        //console.error(error);
-        result = { status: "fail", result: error };
-        return res.json(result);
+          res.json(result);
+        } catch (error) {
+          //console.error(error);
+          result = { status: "fail", result: "[]" };
+          return res.json(result);
+        }
+        //res.json(the_json_array);
+        console.log("stdout: " + stdout);
+        console.log("stderr: " + stderr);
+        if (error !== null) {
+          console.log("exec error: " + error);
+        }
       }
-      //res.json(the_json_array);
-      console.log("stdout: " + stdout);
-      console.log("stderr: " + stderr);
-      if (error !== null) {
-        console.log("exec error: " + error);
-      }
-    }
-  );
+    );
+  } catch (error) {
+    //console.error(error);
+    result = { status: "fail", result: "[]" };
+    return res.json(result);
+  }
 });
 
 module.exports = router;

@@ -164,6 +164,9 @@ var	app = express();
 	app.use('/api/v1/report/usertops',require('./v1/api_report_usertop.js'));
 	app.use('/api/v1/report/apps/top',require('./v1/api_report_appsTop.js'));
 	app.use('/api/v1/report/apps',require('./v1/api_report_apps.js'));
+	app.use('/api/v1/report/clientName',require('./v1/api_report_clientName.js'));
+	// User Self-Service
+	app.use('/api/v1/userSelfService/viewLoginHistory',require('./v1/api_userSelfService_viewLoginHistory.js'));
 	// Backup
 	app.use('/api/v1/backup/list',require('./v1/api_backup_list.js'));
 	app.use('/api/v1/backup/all',require('./v1/api_backup_all.js'));

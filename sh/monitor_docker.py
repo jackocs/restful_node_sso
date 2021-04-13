@@ -34,6 +34,6 @@ try:
 		#print(json.dumps(raw_data[0]))
 		print("ok#%s" % json.dumps(raw_data[0]))
 except:
-	print('fail#["Unknown detail"]', end='')
+	print('fail#[]', end='')
 
 client.close()

@@ -22,14 +22,13 @@ router.get("/:users/:domain/:start/:stop", function (req, res) {
       " " +
       stop,
     function (error, stdout, stderr) {
-
       try {
         let output = stdout.split("#");
         var myObj = JSON.parse(output[1].trim());
         result = { status: output[0].trim(), result: myObj };
         res.json(result);
       } catch (er) {
-        result = { status: "fail", result: er };
+        result = { status: "fail", result: "[]" };
         return res.json(result);
       }
 

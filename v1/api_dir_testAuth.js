@@ -94,7 +94,7 @@ router.post("", function (req, res) {
     });
   } catch (error) {
     //console.error(error);
-    result = { status: "fail", result: error };
+    result = { status: "fail", result: "[]" };
     return res.json(result);
   }
 });

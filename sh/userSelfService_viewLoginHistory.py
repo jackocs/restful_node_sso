@@ -64,15 +64,15 @@ def query_authSummary(user, domain, start, end):
 		last_hour_date_time = datenow - timedelta(24)
 		last_hour_date_time = last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ')
 		if domain == 'default':
-			select = "select * from loginlogs where uid='"+user+"' and time >= '"+last_hour_date_time+"' order by time desc"
+			select = "select * from loginlogs where uid='"+user+"' and auth='true' and time >= '"+last_hour_date_time+"' order by time desc"
 		else:
-			select = "select * from loginlogs where uid='"+user+"' and domain='"+domain+"' and time >= '"+last_hour_date_time+"' order by time desc"
+			select = "select * from loginlogs where uid='"+user+"' and auth='true' and domain='"+domain+"' and time >= '"+last_hour_date_time+"' order by time desc"
 	else:
 		if domain == 'default':
-			select = "select * from loginlogs where uid='"+user+"' and time >= '"+start+"'  and time <= '"+end+"' order by time desc"
+			select = "select * from loginlogs where uid='"+user+"' and auth='true' and time >= '"+start+"'  and time <= '"+end+"' order by time desc"
 		else:
-			select = "select * from loginlogs where uid='"+user+"' and domain='"+domain+"' and time >= '"+start+"'  and time <= '"+end+"' order by time desc"
-
+			select = "select * from loginlogs where uid='"+user+"' and auth='true' and domain='"+domain+"' and time >= '"+start+"'  and time <= '"+end+"' order by time desc"
+	
 	result = client.query(select)
 	data = []
 	for point in result:
@@ -117,7 +117,7 @@ try:
 		
 		#datenow = datetime.now()
 		#last_hour_date_time = datenow - timedelta(hours = hours)
-		#print(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
+		#print(end)
 		query_authSummary(user, domain, start, end)
 except:
 	print('fail#[]', end='')

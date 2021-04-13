@@ -7,36 +7,37 @@ var split = require("split-string");
 var child;
 
 router.get("/:apps/:month", function (req, res) {
-  var apps = req.params.apps.trim();
-  var month = req.params.month.trim();
-  child = exec(
-    "/home/restful_node_sso/sh/report_monthlySummaryApps.py " +
-      apps +
-      " " +
-      month,
-    function (error, stdout, stderr) {
-      try {
-        let output = stdout.split("#");
-        var myObj = JSON.parse(output[1].trim());
-        result = { status: output[0].trim(), result: myObj };
-        res.json(result);
-      } catch (er) {
-        result = { status: "fail", result: er };
-        return res.json(result);
-      }
+  try {
+    var apps = req.params.apps.trim();
+    var month = req.params.month.trim();
+    child = exec(
+      "/home/restful_node_sso/sh/report_monthlySummaryApps.py " +
+        apps +
+        " " +
+        month,
+      function (error, stdout, stderr) {
+        try {
+          let output = stdout.split("#");
+          var myObj = JSON.parse(output[1].trim());
+          result = { status: output[0].trim(), result: myObj };
+          res.json(result);
+        } catch (er) {
+          result = { status: "fail", result: "[]" };
+          return res.json(result);
+        }
 
-      //var arr = JSON.parse(output[1]);
-      //let result = {'status':output[0].trim(),'result':arr};
-
-      //res.json(result);
-      //res.json(the_json_array);
-      console.log("stdout: " + stdout);
-      console.log("stderr: " + stderr);
-      if (error !== null) {
-        console.log("exec error: " + error);
+        console.log("stdout: " + stdout);
+        console.log("stderr: " + stderr);
+        if (error !== null) {
+          console.log("exec error: " + error);
+        }
       }
-    }
-  );
+    );
+  } catch (error) {
+    //console.error(error);
+    result = { status: "fail", result: "[]" };
+    return res.json(result);
+  }
 });
 
 module.exports = router;

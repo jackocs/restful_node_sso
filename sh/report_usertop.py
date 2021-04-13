@@ -110,4 +110,4 @@ try:
 		#print(last_hour_date_time.strftime('%Y-%m-%dT%H:%M:%SZ'))
 		query_authSummary(tops, status, start, end)
 except:
-	print('fail#["Unknown query"]', end='')
+	print('fail#[]', end='')

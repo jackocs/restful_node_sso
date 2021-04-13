@@ -6,27 +6,33 @@ var exec = require("child_process").exec;
 var child;
 
 router.get("/:path", function (req, res) {
-  var path = req.params.path.trim();
-  child = exec(
-    "/home/restful_node_sso/sh/restore_all.sh " + path,
-    function (error, stdout, stderr) {
-      try {
-        let output = stdout.split("#");
-        var arr = JSON.parse(output[1]);
-        result = { status: output[0].trim(), result: arr };
-        res.json(result);
-      } catch (error) {
-        //console.error(error);
-        result = { status: "fail", result: error };
-        return res.json(result);
+  try {
+    var path = req.params.path.trim();
+    child = exec(
+      "/home/restful_node_sso/sh/restore_all.sh " + path,
+      function (error, stdout, stderr) {
+        try {
+          let output = stdout.split("#");
+          var arr = JSON.parse(output[1]);
+          result = { status: output[0].trim(), result: arr };
+          res.json(result);
+        } catch (error) {
+          //console.error(error);
+          result = { status: "fail", result: "[]" };
+          return res.json(result);
+        }
+        console.log("stdout: " + stdout);
+        console.log("stderr: " + stderr);
+        if (error !== null) {
+          console.log("exec error: " + error);
+        }
       }
-      console.log("stdout: " + stdout);
-      console.log("stderr: " + stderr);
-      if (error !== null) {
-        console.log("exec error: " + error);
-      }
-    }
-  );
+    );
+  } catch (error) {
+    //console.error(error);
+    result = { status: "fail", result: "[]" };
+    return res.json(result);
+  }
 });
 
 module.exports = router;
