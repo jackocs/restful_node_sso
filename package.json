@@ -33,6 +33,6 @@
     "split-string": "^5.0.4",
     "ssha": "^1.0.1",
     "timestamp-nano": "^1.0.0",
-    "validator": "^8.0.0"
+    "validator": "^13.7.0"
   }
 }
