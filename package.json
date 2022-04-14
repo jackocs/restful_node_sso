@@ -12,7 +12,7 @@
   "author": "Peerapong Thongpubet",
   "license": "ISC",
   "dependencies": {
-    "async": "^3.0.0",
+    "async": "^3.2.2",
     "body-parser": "^1.18.3",
     "connect": "^3.6.6",
     "crypto-api": "^0.8.3",
