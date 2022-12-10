@@ -17,7 +17,7 @@
     "connect": "^3.6.6",
     "crypto-api": "^0.8.3",
     "encrypto-decrypto": "^1.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-fileupload": "^0.2.0",
     "express-ip-access-control": "^1.0.5",
     "fs": "0.0.1-security",
